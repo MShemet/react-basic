@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useBreedList from './useBreedList';
-import Pet from './Pet';
+import Results from './Results';
 
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
@@ -37,9 +37,14 @@ const SearchParams = () => {
     requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    requestPets();
+  };
+
   return (
     <div className="search-params">
-      <form>
+      <form onSubmit={submitForm}>
         <label htmlFor="location">
           Location
           <input
@@ -48,7 +53,6 @@ const SearchParams = () => {
             placeholder="Location"
             onChange={changeLocation}
           />
-          <button>Submit</button>
         </label>
 
         <label htmlFor="animal">
@@ -86,16 +90,11 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
+
+        <button>Submit</button>
       </form>
 
-      {pets.map((pet) => (
-        <Pet
-          name={pet.name}
-          animal={pet.animal}
-          breed={pet.breed}
-          key={pet.id}
-        />
-      ))}
+      <Results pets={pets} />
     </div>
   );
 };
