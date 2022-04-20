@@ -58,9 +58,11 @@ const SearchParams = () => {
           Location
           <input
             id="location"
+            type="text"
             value={location}
             placeholder="Location"
             onChange={changeLocation}
+            className="w-60 mb-5 block"
           />
         </label>
 
@@ -71,6 +73,7 @@ const SearchParams = () => {
             value={animal}
             onChange={changeAnimal}
             onBlur={changeAnimal}
+            className="w-60 mb-5 block"
           >
             <option></option>
 
@@ -85,10 +88,12 @@ const SearchParams = () => {
         <label htmlFor="breed">
           Breed
           <select
+            disabled={!breeds.length}
             id="breed"
             value={breed}
             onChange={changeBreed}
             onBlur={changeBreed}
+            className="w-60 mb-5 block disabled:opacity-50"
           >
             <option></option>
 
@@ -107,6 +112,7 @@ const SearchParams = () => {
             value={theme}
             onChange={changeTheme}
             onBlur={changeTheme}
+            className="w-60 mb-5 block"
           >
             <option value="peru">peru</option>
             <option value="darkBlue">darkBlue</option>
@@ -115,7 +121,12 @@ const SearchParams = () => {
           </select>
         </label>
 
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button
+          className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+          style={{ backgroundColor: theme }}
+        >
+          Submit
+        </button>
       </form>
 
       <Results pets={pets} />
