@@ -49,8 +49,11 @@ const SearchParams = () => {
   };
 
   return (
-    <div className="search-params">
-      <form onSubmit={submitForm}>
+    <div className="my-0 mx-auto w-11/12">
+      <form
+        onSubmit={submitForm}
+        className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center"
+      >
         <label htmlFor="location">
           Location
           <input
