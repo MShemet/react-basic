@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react';
+import { FunctionComponent, StrictMode, useState } from 'react';
 // import { StrictMode, useState, lazy, Suspense } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 // import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import SearchParams from './SearchParams';
 // const Details = lazy(() => import('./Details')); // lazy not support for ssr
 // const SearchParams = lazy(() => import('./SearchParams')); // lazy not support for ssr
 
-const App = () => {
+const App: FunctionComponent = () => {
   const theme = useState('darkBlue');
 
   return (

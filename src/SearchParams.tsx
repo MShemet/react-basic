@@ -1,32 +1,40 @@
-import { useState, useEffect, useContext } from 'react';
+import {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent,
+  ChangeEvent,
+  FormEvent,
+} from 'react';
 import ThemeContext from './ThemeContext';
 import useBreedList from './useBreedList';
 import Results from './Results';
+import { PetAPIResponse, Animal, Pet } from './APIResponsesTypes';
 
-const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
+const ANIMALS: Animal[] = ['bird', 'cat', 'dog', 'rabbit', 'reptile'];
 
-const SearchParams = () => {
+const SearchParams: FunctionComponent = () => {
   const [location, setLocation] = useState('');
-  const [animal, setAnimal] = useState('');
+  const [animal, setAnimal] = useState('' as Animal);
   const [breed, setBreed] = useState('');
-  const [pets, setPets] = useState([]);
+  const [pets, setPets] = useState([] as Pet[]);
   const [breeds] = useBreedList(animal);
   const [theme, setTheme] = useContext(ThemeContext);
 
-  const changeLocation = (e) => {
+  const changeLocation = (e: ChangeEvent<HTMLInputElement>) => {
     setLocation(e.target.value);
   };
 
-  const changeAnimal = (e) => {
-    setAnimal(e.target.value);
+  const changeAnimal = (e: ChangeEvent<HTMLSelectElement>) => {
+    setAnimal(e.target.value as Animal);
     setBreed('');
   };
 
-  const changeBreed = (e) => {
+  const changeBreed = (e: ChangeEvent<HTMLSelectElement>) => {
     setBreed(e.target.value);
   };
 
-  const changeTheme = (e) => {
+  const changeTheme = (e: ChangeEvent<HTMLSelectElement>) => {
     setTheme(e.target.value);
   };
 
@@ -34,18 +42,18 @@ const SearchParams = () => {
     const url = `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`;
 
     const res = await fetch(url);
-    const json = await res.json();
+    const json = (await res.json()) as PetAPIResponse;
 
     setPets(json.pets);
   };
 
   useEffect(() => {
-    requestPets();
+    void requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const submitForm = (e) => {
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    requestPets();
+    void requestPets();
   };
 
   return (
